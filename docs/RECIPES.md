@@ -2,7 +2,7 @@
 
 ## Visual editor
 
-Run `recollect desk` to open the local tuning desk in your browser. Keep its terminal
+Run `cems desk` to open the local tuning desk in your browser. Keep its terminal
 running; Ctrl-C stops the server and any unfinished preparation. No additional web
 framework or package installation is required.
 
@@ -52,7 +52,7 @@ matches a recollection. Source literal `rdar`, for example, is not labeled a typ
 unless the displayed construction actually uses a deletion operation.
 
 If the desk was already running when these views were installed, stop it with
-Ctrl-C and rerun `recollect desk` to load the new backend. The saved draft resumes.
+Ctrl-C and rerun `cems desk` to load the new backend. The saved draft resumes.
 
 The four tabs expose family and capitalization weights, template inclusion and
 relationships, words/separators and transformations, and source-length weights.
@@ -77,11 +77,11 @@ the preceding edit in the current browser session. Undo history is not persisted
 
 The desk binds only to `127.0.0.1`, uses a session token, and serves no external assets.
 Use the printed URL, or let the command open the browser. `--no-open`, `--port`,
-`--draft`, and `--output` are available; `recollect desk --help` lists them. For a
+`--draft`, and `--output` are available; `cems desk --help` lists them. For a
 standalone public example:
 
 ```sh
-recollect desk docs/examples/recipe.toml --draft /tmp/example-desk.json --output /tmp/example-previews
+cems desk docs/examples/recipe.toml --draft /tmp/example-desk.json --output /tmp/example-previews
 ```
 
 This editor exposes the current recipe schema; it does not automatically import the
@@ -95,12 +95,12 @@ Preparation is not instantaneous: compilation can take seconds to tens of second
 Run these in two terminal panes:
 
 ```sh
-recollect recipe edit
-recollect watch --at 1 1m 1b 100b 1t 2t 100t 200t --count 5
+cems recipe edit
+cems watch --at 1 1m 1b 100b 1t 2t 100t 200t --count 5
 ```
 
 The default file is `models/RECIPE.toml` in your selected workspace. `recipe edit`
-uses `$VISUAL`, then `$EDITOR`, then `nvim`. `recollect recipe path` prints its
+uses `$VISUAL`, then `$EDITOR`, then `nvim`. `cems recipe path` prints its
 location. Supply a file to either command to review a different recipe.
 
 Saving the TOML starts an offline compilation. The watcher prints progress and
@@ -115,7 +115,7 @@ preceding successful preview. These are coordinate comparisons, not inverse-rank
 lookups for each old candidate. Ranks outside the new model are labeled explicitly.
 
 Every successful result is an immutable `recipe-…` proposal in `prepared-models/`,
-visible in `recollect models`. It contains the recipe, construction inputs,
+visible in `cems models`. It contains the recipe, construction inputs,
 compiled graphs, full plan, optional remaining plan and sampled explanations.
 Unchanged graphs are reused. No command here starts a checker, adopts a campaign
 revision, or replaces the selected personal model.
@@ -123,9 +123,9 @@ revision, or replaces the selected personal model.
 For one preview, validation, or a readable weight summary:
 
 ```sh
-recollect watch --once --at 1 1t 100t
-recollect recipe check
-recollect recipe show
+cems watch --once --at 1 1t 100t
+cems recipe check
+cems recipe show
 ```
 
 ## What the recipe says
@@ -236,10 +236,10 @@ requires explicit translation and review.
 A small public example works without a workspace:
 
 ```sh
-recollect recipe check docs/examples/recipe.toml
-recollect watch docs/examples/recipe.toml --once --at 1 100 --output /path/to/previews
+cems recipe check docs/examples/recipe.toml
+cems watch docs/examples/recipe.toml --once --at 1 100 --output /path/to/previews
 ```
 
-For lower-level tooling, `recollect recipe export FILE --output NEW.json` emits
+For lower-level tooling, `cems recipe export FILE --output NEW.json` emits
 the existing construction format. Personal material stays in the private
 workspace; the software, example and tests use public synthetic inputs.

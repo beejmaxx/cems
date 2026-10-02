@@ -45,7 +45,7 @@ def main():
     if options.workspace:
         os.environ["RECOVERY_WORKSPACE"] = str(options.workspace.expanduser().resolve())
     if not arguments or arguments[0] in {"-h", "--help"}:
-        print("Usage: recollect [--workspace PATH] COMMAND [arguments]\n")
+        print("Usage: cems [--workspace PATH] COMMAND [arguments]\n")
         print("Start here:\n  desk                      Open the visual model editor\n  models                    List available models and proposals\n"
               "  inspect MODEL --at 1t 2t   Show ranked candidate samples\n"
               "  recipe edit               Edit the private TOML proposal\n"
@@ -65,7 +65,7 @@ def main():
         try:
             location = saved_workspace()
         except (OSError, ValueError) as error:
-            raise SystemExit(f"recollect: {error}") from None
+            raise SystemExit(f"cems: {error}") from None
         if location:
             os.environ["RECOVERY_WORKSPACE"] = location
     if command == "personal-model":
@@ -76,7 +76,7 @@ def main():
     if script.parent == LAB / "tools/experiments":
         sys.path.insert(0, str(script.parent))
     extra = ["--list"] if command == "models" else []
-    sys.argv = [f"recollect {command}", *extra, *arguments[1:]]
+    sys.argv = [f"cems {command}", *extra, *arguments[1:]]
     runpy.run_path(str(script), run_name="__main__")
 
 

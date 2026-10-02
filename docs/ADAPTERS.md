@@ -24,8 +24,8 @@ limitation. Negative evidence keeps an explicit checker-policy label.
 Inspect the exact qualification options before running:
 
 ```sh
-recollect gpu qualify --help
-recollect gpu-campaign-qualify --help
+cems gpu qualify --help
+cems gpu-campaign-qualify --help
 ```
 
 Both commands use generated targets. The campaign qualifier checks saved hits,

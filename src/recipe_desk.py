@@ -293,7 +293,7 @@ def handler_for(desk, token):
             if self.headers.get("Host") != host or self.headers.get("Origin", "http://" + host) != "http://" + host:
                 self.send(403, {"error": "local origin required"}); return False
             if api and not secrets.compare_digest(self.headers.get("X-Desk-Token", ""), token):
-                self.send(403, {"error": "open the URL printed by recollect desk"}); return False
+                self.send(403, {"error": "open the URL printed by cems desk"}); return False
             return True
 
         def do_GET(self):
@@ -340,7 +340,7 @@ def handler_for(desk, token):
 def main():
     if sys.argv[1:2] == ["--job"]:
         worker(sys.argv[2]); return
-    parser = argparse.ArgumentParser(prog="recollect desk", description=__doc__)
+    parser = argparse.ArgumentParser(prog="cems desk", description=__doc__)
     parser.add_argument("recipe", nargs="?", type=Path, help="defaults to workspace models/RECIPE.toml")
     parser.add_argument("--draft", type=Path, help="persistent editor draft; default RECIPE.desk.json next to recipe")
     parser.add_argument("--output", type=Path, help="proposal bundles; default workspace prepared-models")
@@ -374,4 +374,4 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         pass
     except (ValueError, RuntimeError, OSError, KeyError, TypeError) as error:
-        raise SystemExit("recollect desk: " + str(error)) from None
+        raise SystemExit("cems desk: " + str(error)) from None

@@ -375,7 +375,7 @@ def main():
     import os
     import shlex
     from workspace import Workspace
-    parser = argparse.ArgumentParser(prog="recollect recipe", description=__doc__)
+    parser = argparse.ArgumentParser(prog="cems recipe", description=__doc__)
     parser.add_argument("command", choices=("edit", "path", "check", "show", "export"))
     parser.add_argument("file", nargs="?", type=Path, help="defaults to workspace models/RECIPE.toml")
     parser.add_argument("--output", type=Path, help="new construction JSON path for export")
@@ -423,4 +423,4 @@ if __name__ == "__main__":
     try:
         main()
     except (ValueError, RuntimeError, OSError, KeyError, TypeError) as error:
-        raise SystemExit("recollect recipe: " + str(error)) from None
+        raise SystemExit("cems recipe: " + str(error)) from None

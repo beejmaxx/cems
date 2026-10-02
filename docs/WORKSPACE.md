@@ -3,7 +3,7 @@
 Keep personal inputs and generated artifacts outside the public checkout. A
 workspace can contain `inputs/`, `models/`, `prepared-models/`, `campaigns/`,
 `coverage/`, and `archive/`. The location is explicit: `--workspace PATH`, then
-`RECOVERY_WORKSPACE`, then a saved `recollect workspace use PATH` setting.
+`RECOVERY_WORKSPACE`, then a saved `cems workspace use PATH` setting.
 
 A minimal `workspace.json` example is:
 
@@ -33,3 +33,5 @@ its preview matches; an edit invalidates earlier exact results until rebuilt.
 
 Models and compiled plans disclose candidate spaces. Keep this workspace in its
 own private version control and do not add it as a public Git submodule.
+
+The primary command is `cems`; `recollect` remains an alias. Saved workspace settings use `~/.config/cems/config.json` (or `$XDG_CONFIG_HOME/cems/config.json`). If that file is absent, the CLI reads the older `recollect/config.json` selection. New selections use the CEMS location; existing model and recipe formats are unchanged.

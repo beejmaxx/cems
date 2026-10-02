@@ -12,7 +12,7 @@ class Workspace:
     def __init__(self, location=None):
         location = location or os.environ.get(ENVIRONMENT)
         if not location:
-            raise RuntimeError("supply --workspace PATH, set RECOVERY_WORKSPACE, or run recollect workspace use PATH")
+            raise RuntimeError("supply --workspace PATH, set RECOVERY_WORKSPACE, or run cems workspace use PATH")
         self.root = Path(location).expanduser().resolve(strict=True)
         self.document = json.loads((self.root / "workspace.json").read_text())
         if self.document.get("schema") != SCHEMA:
@@ -43,7 +43,7 @@ class Workspace:
 
 def main():
     import argparse
-    parser = argparse.ArgumentParser(prog="recollect workspace", description=__doc__)
+    parser = argparse.ArgumentParser(prog="cems workspace", description=__doc__)
     parser.add_argument("command", choices=("paths", "use"))
     parser.add_argument("location", nargs="?", type=Path, help="workspace to remember with 'use'")
     args = parser.parse_args()

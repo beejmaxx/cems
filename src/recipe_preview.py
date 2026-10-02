@@ -289,7 +289,7 @@ def main():
         job = read_json(sys.argv[2], METADATA_CAP)
         build_proposal(job["recipe"], job["raw"].encode(), Path(job["output"]), reuse=job["reuse"])
         return
-    parser = argparse.ArgumentParser(prog="recollect watch", description=__doc__)
+    parser = argparse.ArgumentParser(prog="cems watch", description=__doc__)
     parser.add_argument("recipe", type=Path, nargs="?", help="editable TOML recipe; defaults to workspace models/RECIPE.toml")
     parser.add_argument("--at", nargs="+", type=rank_number, default=[1, 10**6, 10**9, 10**11, 10**12, 10**14])
     parser.add_argument("--count", type=int, default=5, help="candidates per rank, 1..20")
@@ -308,4 +308,4 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         print("\nWatcher stopped; proposals remain saved."); raise SystemExit(130)
     except (ValueError, RuntimeError, OSError, KeyError, TypeError) as error:
-        raise SystemExit("recollect watch: " + str(error)) from None
+        raise SystemExit("cems watch: " + str(error)) from None

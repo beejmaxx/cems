@@ -24,7 +24,7 @@ test-cli: $(BUILD)/prep-workspace
 	PYTHONPATH="$(TEST_PYTHONPATH)" PYTHONDONTWRITEBYTECODE=1 $(PYTHON) -B -m unittest -v test_plan_inspect test_recipe test_recipe_desk test_recipe_views test_workspace
 
 help:
-	@echo "make install       Install recollect into $(PREFIX)/bin"
+	@echo "make install       Install cems into $(PREFIX)/bin"
 	@echo "make test-cli      Test installed CLI and rank sampling"
 	@echo "make build test test-large; optional: test-luks1 test-gpu-handoff"
 

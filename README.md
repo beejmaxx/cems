@@ -30,15 +30,15 @@ make test test-large
 make install
 ```
 
-The installed command is `recollect` (the existing CLI name). Add `~/.local/bin`
+The installed command is `cems`; `recollect` remains a compatibility alias. Add `~/.local/bin`
 to your PATH. It points to this checkout; rerun installation if the checkout moves.
 Use `CXX=g++` on Linux and `PYTHON=/path/to/python3` where needed.
 
 Try the synthetic recipe without a workspace:
 
 ```sh
-recollect recipe check docs/examples/recipe.toml
-recollect desk docs/examples/recipe.toml --draft /tmp/cems-draft.json --output /tmp/cems-previews
+cems recipe check docs/examples/recipe.toml
+cems desk docs/examples/recipe.toml --draft /tmp/cems-draft.json --output /tmp/cems-previews
 ```
 
 The local browser editor saves a proposal and shows construction routes, ranked
@@ -50,8 +50,8 @@ For a single terminal preview:
 
 ```sh
 mkdir -p /tmp/cems-output
-recollect watch docs/examples/recipe.toml --once --at 1 100 --output /tmp/cems-output
-recollect --help
+cems watch docs/examples/recipe.toml --once --at 1 100 --output /tmp/cems-output
+cems --help
 ```
 
 `inspect PATH.plan --at 1 1b 1t 100t --count 5` jumps directly to ranks. Ranks are
@@ -63,7 +63,7 @@ priorities, not recovery odds. Marks outside the plan are identified explicitly.
 Personal models, seed lists, target images, prepared plans, campaign databases,
 and recovery evidence belong in a separate private workspace. They are not
 shipped with this repository. Set `RECOVERY_WORKSPACE`, pass `--workspace PATH`,
-or run `recollect workspace use PATH` to select one explicitly.
+or run `cems workspace use PATH` to select one explicitly.
 
 See [workspace setup](docs/WORKSPACE.md). Do not commit a workspace or compiled
 plans: those artifacts reveal candidate sets. Project-specific historical

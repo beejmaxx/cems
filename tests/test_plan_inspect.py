@@ -169,12 +169,47 @@ class InspectTests(unittest.TestCase):
         for text in ("0", "-1", "1.1", "1e12", "nan", "100000000q"):
             with self.assertRaises(argparse.ArgumentTypeError):
                 rank_number(text)
-        blocked = self.root / "unrelated/bin/recollect"
-        blocked.parent.mkdir(parents=True)
-        blocked.write_bytes(b"unrelated command")
-        with self.assertRaisesRegex(RuntimeError, "unrelated"):
-            install(blocked.parent.parent)
-        self.assertEqual(blocked.read_bytes(), b"unrelated command")
+        for name in ("cems", "recollect"):
+            blocked = self.root / name / "bin" / name
+            blocked.parent.mkdir(parents=True)
+            blocked.write_bytes(b"unrelated command")
+            with self.assertRaisesRegex(RuntimeError, "unrelated"):
+                install(blocked.parent.parent)
+            self.assertEqual(blocked.read_bytes(), b"unrelated command")
+            other = blocked.with_name("recollect" if name == "cems" else "cems")
+            self.assertFalse(other.exists())
+
+    def test_primary_name_alias_and_managed_upgrade(self):
+        self.assertEqual(self.command.name, "cems")
+        alias = self.command.with_name("recollect")
+        result = subprocess.run([str(alias), "--help"], env=self.env,
+            text=True, capture_output=True, timeout=20)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(result.stdout, self.cli("--help").stdout)
+        self.assertIn("Usage: cems ", result.stdout)
+        self.assertIn("usage: cems inspect", self.cli("inspect", "--help").stdout)
+        prefix = self.root / "old installation"
+        legacy = prefix / "bin/recollect"
+        legacy.parent.mkdir(parents=True)
+        legacy.write_text("#!/bin/sh\n# Managed recollect launcher for search-prep-lab\nexit 99\n")
+        upgraded = install(prefix)
+        self.assertEqual(upgraded.name, "cems")
+        self.assertEqual(upgraded.read_bytes(), legacy.read_bytes())
+
+    def test_legacy_workspace_selection_and_new_precedence(self):
+        old = Path(self.env["XDG_CONFIG_HOME"]) / "recollect/config.json"
+        old.parent.mkdir(parents=True)
+        old.write_text(json.dumps({"schema": "recollect-cli-v1", "workspace": str(self.ws)}))
+        before = old.read_bytes()
+        self.assertEqual(json.loads(self.cli("models", "--json").stdout)[0]["model"], "generated")
+        other = self.root / "new workspace"
+        other.mkdir()
+        (other / "workspace.json").write_text(json.dumps({"schema": SCHEMA, "resources": {}, "profiles": {}}))
+        self.cli("workspace", "use", other)
+        self.assertEqual(json.loads(self.cli("models", "--json").stdout), [])
+        self.assertEqual(old.read_bytes(), before)
+        new = old.parent.parent / "cems/config.json"
+        self.assertEqual(json.loads(new.read_text())["schema"], "cems-cli-v1")
 
 
 if __name__ == "__main__":

@@ -17,7 +17,7 @@ campaign. Every revision subtracts both the accepted base set and local complete
 negatives from the new full plan. It starts at the top of that revised remainder;
 an old numeric cursor is not transferred to the new model.
 
-`recollect worker --help`, `checkpoint --help`, and `history --help` expose the
+`cems worker --help`, `checkpoint --help`, and `history --help` expose the
 local lifecycle. `model preview` is read-only; `model revise` adopts a new model
 against the current locked history. Controllers reject altered artifacts and
 runtime source mismatches. Storage caps and a free-disk reserve apply.

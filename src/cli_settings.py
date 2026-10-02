@@ -7,16 +7,18 @@ import tempfile
 
 def settings_path():
     base = Path(os.environ.get("XDG_CONFIG_HOME", str(Path.home() / ".config"))).expanduser()
-    return base / "recollect" / "config.json"
+    return base / "cems" / "config.json"
 
 
 def saved_workspace():
     path = settings_path()
     if not path.exists():
+        path = path.parent.parent / "recollect" / "config.json"
+    if not path.exists():
         return None
     data = json.loads(path.read_text())
-    if data.get("schema") != "recollect-cli-v1" or not isinstance(data.get("workspace"), str):
-        raise ValueError(f"invalid CLI settings: {path}; reset with recollect workspace use PATH")
+    if data.get("schema") not in {"cems-cli-v1", "recollect-cli-v1"} or not isinstance(data.get("workspace"), str):
+        raise ValueError(f"invalid CLI settings: {path}; reset with cems workspace use PATH")
     return data["workspace"]
 
 
@@ -29,7 +31,7 @@ def save_workspace(location):
     try:
         with tempfile.NamedTemporaryFile(mode="w", dir=path.parent, delete=False) as stream:
             temporary = Path(stream.name)
-            json.dump({"schema": "recollect-cli-v1", "workspace": str(root)}, stream, indent=2)
+            json.dump({"schema": "cems-cli-v1", "workspace": str(root)}, stream, indent=2)
             stream.write("\n")
             stream.flush()
             os.fsync(stream.fileno())

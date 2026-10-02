@@ -133,7 +133,7 @@ def choose(selector, full=False):
     if len(matches) > 1:
         raise ValueError("ambiguous model; choose " + " or ".join(entry.key for entry in matches))
     if not matches:
-        raise ValueError(f"unknown model {selector!r}; run recollect models")
+        raise ValueError(f"unknown model {selector!r}; run cems models")
     entry = matches[0]
     view = "full" if full or "remaining" not in entry.plans else "remaining"
     return entry, entry.plans[view]
@@ -235,13 +235,13 @@ def list_models(as_json=False):
 
 
 def main():
-    parser = argparse.ArgumentParser(prog="recollect inspect", description=__doc__, epilog=(
-        "Examples: recollect inspect combined_high --at 1t 2t 100t 200t\n"
-        "          recollect inspect combined_high --every 1t --to 10t --scores\n"
-        "          recollect inspect /path/to/model.plan --at 1 --json\n"
+    parser = argparse.ArgumentParser(prog="cems inspect", description=__doc__, epilog=(
+        "Examples: cems inspect combined_high --at 1t 2t 100t 200t\n"
+        "          cems inspect combined_high --every 1t --to 10t --scores\n"
+        "          cems inspect /path/to/model.plan --at 1 --json\n"
         "Ranks are one-based. Suffixes: k=thousand, m=million, b=billion, t=trillion, q=quadrillion."),
         formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("model", nargs="?", help="model name from 'recollect models', or a .plan path")
+    parser.add_argument("model", nargs="?", help="model name from 'cems models', or a .plan path")
     parser.add_argument("--list", action="store_true", help="list available models")
     positions = parser.add_mutually_exclusive_group()
     positions.add_argument("--at", nargs="+", type=rank_number, metavar="RANK", help="sample these ranks (default: 1)")
@@ -256,7 +256,7 @@ def main():
     if args.list and (args.model or args.at or args.every or args.start or args.to or args.full or args.scores or args.count != 5):
         parser.error("--list accepts only --json; sampling options require a model")
     if not args.list and args.model is None:
-        parser.error("choose a model; run recollect models")
+        parser.error("choose a model; run cems models")
     try:
         if args.list:
             list_models(args.json)

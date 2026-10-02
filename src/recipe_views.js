@@ -49,7 +49,7 @@ window.deskViews = (() => {
   }
   function gate(){
     if(ready())return false;
-    panel.append(note(state&&!state.visual_views?'Restart recollect desk to load these new views. Your saved draft will reopen.':'The map follows your editable draft. Exact candidate and heatmap results become available when its preview is ready.'));
+    panel.append(note(state&&!state.visual_views?'Restart cems desk to load these new views. Your saved draft will reopen.':'The map follows your editable draft. Exact candidate and heatmap results become available when its preview is ready.'));
     return true;
   }
   function render(){if(!doc)return;header();panel.replaceChildren();if(mode==='subway')renderSubway();else if(!gate()){if(mode==='autopsy')renderAutopsy();else renderHeatmap()}}
