@@ -15,9 +15,7 @@ accuracy. Compilation has explicit graph and integer limits. Lost acknowledgment
 can require replaying work. GPU checker limitations are described below.
 
 Read the [whitepaper (PDF)](WHITEPAPER.pdf) for the mathematics, worked examples,
-execution contract, and limitations. Its [Typst source](WHITEPAPER.typ) and
-bibliography are included; `make whitepaper` rebuilds it. The public edition uses
-synthetic examples and excludes personal recovery details.
+execution contract, and limitations.
 
 ## Quick start
 
