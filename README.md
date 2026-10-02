@@ -14,6 +14,11 @@ Model weights express assumptions; exact arithmetic does not establish their
 accuracy. Compilation has explicit graph and integer limits. Lost acknowledgments
 can require replaying work. GPU checker limitations are described below.
 
+Read the [whitepaper (PDF)](WHITEPAPER.pdf) for the mathematics, worked examples,
+execution contract, and limitations. Its [Typst source](WHITEPAPER.typ) and
+bibliography are included; `make whitepaper` rebuilds it. The public edition uses
+synthetic examples and excludes personal recovery details.
+
 ## Quick start
 
 Requirements: Python 3.11+, Make, and a C++20 compiler. Ordinary tests use generated

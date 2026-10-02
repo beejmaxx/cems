@@ -122,3 +122,10 @@ gpu-handoff: all $(BUILD)/luks1-checker $(BUILD)/hex-spool
 
 test-gpu-handoff: gpu-handoff
 	PYTHONDONTWRITEBYTECODE=1 $(PYTHON) -B -m unittest -v test_gpu_handoff
+
+.PHONY: whitepaper
+TYPST ?= typst
+whitepaper: WHITEPAPER.pdf
+
+WHITEPAPER.pdf: WHITEPAPER.typ WHITEPAPER.bib whitepaper/pipeline.svg
+	$(TYPST) compile WHITEPAPER.typ $@

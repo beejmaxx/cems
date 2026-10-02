@@ -23,7 +23,7 @@ def main():
     for name in filter(None, names):
         p = Path(name)
         reasons = []
-        if p.parts[0] in PRIVATE_ROOTS or p.suffix in GENERATED:
+        if p.parts[0] in PRIVATE_ROOTS or (p.suffix in GENERATED and name != 'WHITEPAPER.pdf'):
             reasons.append('private or generated artifact')
         if name.endswith(('.desk.json', '.memories.json', '.notes.json')) or p.name == 'workspace.json':
             reasons.append('private workspace state')
@@ -32,6 +32,8 @@ def main():
             reasons.append('unsupported file type')
         else:
             data = file.read_bytes()
+            if name == 'WHITEPAPER.pdf' and not data.startswith(b'%PDF-'):
+                reasons.append('invalid whitepaper PDF')
             if len(data) > 2*1024**2:
                 reasons.append('oversized source')
             reasons += [kind for kind, pattern in PATTERNS.items() if re.search(pattern, data)]

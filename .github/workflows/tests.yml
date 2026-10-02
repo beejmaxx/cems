@@ -16,3 +16,4 @@ jobs:
       - run: python tools/check_public_tree.py
       - run: make -j2 build CXX=clang++
       - run: make test test-large CXX=clang++
+      - run: python tools/verify_whitepaper.py . "$RUNNER_TEMP/cems-whitepaper-example"
