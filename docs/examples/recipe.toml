@@ -1,0 +1,61 @@
+# Public, synthetic example. No workspace, personal inputs or checking target.
+schema = "recollect-recipe-v1"
+name = "Public recipe example"
+status = "proposal"
+
+[families]
+remembered = 9
+fallback = 1
+
+[case]
+lower = 8
+title = 4
+upper = 2
+mixed = 1
+mixed_budget = "family"
+
+[lengths.short]
+"2" = 1
+"3" = 1
+
+[slots.prefix]
+options = [{ value = "", weight = 1 }]
+
+[slots.separator]
+options = [{ value = "-", weight = 3 }, { value = "_", weight = 1 }]
+
+[slots.first]
+options = [{ value = "ab", weight = 2 }, { value = "abc", weight = 1 }]
+# Optional: transformations apply after capitalization, independently per chunk.
+# transforms = [{ op = "identity", weight = 99 }, { op = "delete-one", weight = 1 }]
+
+[slots.second]
+options = [{ value = "cd", weight = 2 }, { value = "cde", weight = 1 }]
+
+[slots.suffix]
+options = [{ value = "!", weight = 1 }]
+
+[slots.broad]
+alphabet = "abc"
+
+[[templates]]
+id = "remembered"
+family = "remembered"
+weight = 1
+pattern = "{prefix}{chunk1}{separator}{chunk2}{suffix}"
+chunks = ["first", "second"]
+lengths = "equal"
+length_table = "short"
+case = "shared-pattern"
+separators = "shared"
+
+[[templates]]
+id = "fallback"
+family = "fallback"
+weight = 1
+pattern = "{prefix}{chunk1}{separator}{chunk2}{suffix}"
+chunks = ["broad", "broad"]
+lengths = "equal"
+length_table = "short"
+case = "shared-pattern"
+separators = "shared"

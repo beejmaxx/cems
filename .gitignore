@@ -1,0 +1,45 @@
+# Generated output stays local. Private recovery data belongs in an explicit workspace.
+/build/
+/runs/
+/output/
+/tmp/
+
+# Python and editor caches.
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+.coverage
+htmlcov/
+.DS_Store
+
+# Local checking material and generated campaign stores.
+/private-checking/
+*.luks
+*.hash
+*.plan
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+
+# Local environment credentials.
+.env
+.env.*
+!.env.example
+
+# Prevent accidentally nesting private workspace data in this checkout.
+/recovery-workspace/
+
+# User models and evidence must never enter public source history.
+/models/
+/inputs/
+/prepared-models/
+/campaigns/
+/coverage/
+/archive/
+workspace.json
+*.desk.json
+*.memories.json
+*.notes.json
+*.swg
+*.target

@@ -1,0 +1,14 @@
+{
+  "src/emitter_v1/__init__.py": {
+    "origin": "project-local reusable compiler",
+    "sha256": "8da44148ade7700234470f90a5220a6f20d40a9b1c8926fb5a621617f4dda75c"
+  },
+  "src/emitter_v1/model.py": {
+    "origin": "project-local reusable compiler",
+    "sha256": "4f3723d99da251f6c0d6d6e6f64460cb56eef07b8e564bfb567e209963040640"
+  },
+  "src/emitter_v1/automaton.py": {
+    "origin": "project-local reusable compiler",
+    "sha256": "3fd0047d9567a71b10f4616c38ef648d500bde7e7e2eec8c4d29633657bf2098"
+  }
+}
